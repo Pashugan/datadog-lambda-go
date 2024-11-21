@@ -7,6 +7,8 @@ github.com/Microsoft/go-winio v0.4.19 h1:ZMZG0O5M8bhD0lgCURV8yu3hQ7TGvQ4L1ZW8+J0
 github.com/Microsoft/go-winio v0.4.19/go.mod h1:JPGBdM1cNvN/6ISo+n8V5iA4v8pBzdOpzfwIujj1a84=
 github.com/aws/aws-lambda-go v1.11.1 h1:wuOnhS5aqzPOWns71FO35PtbtBKHr4MYsPVt5qXLSfI=
 github.com/aws/aws-lambda-go v1.11.1/go.mod h1:Rr2SMTLeSMKgD45uep9V/NP8tnbCcySgu04cx0k/6cw=
+github.com/aws/aws-lambda-go v1.29.0/go.mod h1:aakqVz9vDHhtbt0U2zegh/z9SI2+rJ+yRREZYNQLmWY=
+github.com/aws/aws-lambda-go v1.36.0/go.mod h1:jwFe2KmMsHmffA1X2R09hH6lFzJQxzI8qK17ewzbQMM=
 github.com/aws/aws-sdk-go v1.36.29 h1:lM1G3AF1+7vzFm0n7hfH8r2+750BTo+6Lo6FtPB7kzk=
 github.com/aws/aws-sdk-go v1.36.29/go.mod h1:hcU610XS61/+aQV88ixoOzUoG7v3b31pl2zKMmprdro=
 github.com/aws/aws-xray-sdk-go v1.0.0-rc.9 h1:MC5zypTWx5YIbWE3pgcPaG8+1ytirvfCVBkcgHbVZ5Q=
