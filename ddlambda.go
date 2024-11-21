@@ -119,10 +119,9 @@ func WrapHandler(handler interface{}, cfg *Config) interface{} {
 	return WrapFunction(handler, cfg)
 }
 
-func WrapLambdaHandler[TIn, TOut any, H lambda.HandlerFunc[TIn, TOut]](handler H, cfg *Config) lambda.Handler {
+func WrapHandlerFunc[TIn, TOut any, H lambda.HandlerFunc[TIn, TOut]](handler H, cfg *Config) H {
 	listeners := initializeListeners(cfg)
-	h := lambda.NewHandler(handler)
-	return wrapper.WrapHandlerInterfaceWithListeners(h, listeners...)
+	return wrapper.WrapHandlerFuncWithListeners(handler, listeners...)
 }
 
 // GetTraceHeaders returns a map containing Datadog trace headers that reflect the

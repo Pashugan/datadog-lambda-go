@@ -69,6 +69,34 @@ func WrapHandlerWithListeners(handler interface{}, listeners ...HandlerListener)
 	}
 }
 
+func WrapHandlerFuncWithListeners[TIn, TOut any, H lambda.HandlerFunc[TIn, TOut]](handler H, listeners ...HandlerListener) H {
+	err := validateHandler(handler)
+	if err != nil {
+		// This wasn't a valid handler function, pass back to AWS SDK to let it handle the error.
+		logger.Error(fmt.Errorf("handler function was in format ddlambda doesn't recognize: %v", err))
+		return handler
+	}
+	coldStart := true
+
+	// Return custom handler, to be called once per invocation
+	return func(ctx context.Context, msg TIn) (TOut, error) {
+		//nolint
+		ctx = context.WithValue(ctx, "cold_start", coldStart)
+		for _, listener := range listeners {
+			ctx = listener.HandlerStarted(ctx, msg)
+		}
+		CurrentContext = ctx
+		result, err := callHandler(ctx, msg, handler)
+		for _, listener := range listeners {
+			ctx = context.WithValue(ctx, extension.DdLambdaResponse, result)
+			listener.HandlerFinished(ctx, err)
+		}
+		coldStart = false
+		CurrentContext = nil
+		return result, err
+	}
+}
+
 func (h *DatadogHandler) Invoke(ctx context.Context, payload []byte) ([]byte, error) {
 	//nolint
 	ctx = context.WithValue(ctx, "cold_start", h.coldStart)
